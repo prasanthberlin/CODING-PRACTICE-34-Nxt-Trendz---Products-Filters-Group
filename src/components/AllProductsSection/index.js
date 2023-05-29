@@ -111,6 +111,9 @@ class AllProductsSection extends Component {
         isLoading: false,
       })
     } else {
+      this.setState({
+        isLoading: false,
+      })
       this.renderFailureView()
     }
   }
@@ -182,6 +185,14 @@ class AllProductsSection extends Component {
     this.setState({titleSearch}, this.getProducts)
   }
 
+  filterByCategory = categoryId => {
+    this.setState({categoryId}, this.getProducts)
+  }
+
+  filterByRating = ratingId => {
+    this.setState({ratingId}, this.getProducts)
+  }
+
   clearFilters = () => {
     this.setState(
       {categoryId: '', ratingId: '', titleSearch: ''},
@@ -198,9 +209,11 @@ class AllProductsSection extends Component {
         <FiltersGroup
           categoryOptions={categoryOptions}
           ratingsList={ratingsList}
+          userInputValue={titleSearch}
           userSearchValue={this.userSearchValue}
           clearFilters={this.clearFilters}
-          userInputValue={titleSearch}
+          filterByCategory={this.filterByCategory}
+          filterByRating={this.filterByRating}
         />
 
         {isLoading ? this.renderLoader() : this.renderProductsList()}
